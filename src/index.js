@@ -1,28 +1,37 @@
-// 1. Importar os módulos
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
 
-// 2. Iniciar o aplicativo Express
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 3. Conectar ao MongoDB
 const mongoURI = process.env.MONGO_URI;
 
-mongoose.connect(mongoURI)
-  .then(() => console.log('Conectado ao MongoDB com sucesso!'))
-  .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
+mongoose
+  .connect(mongoURI)
+  .then(() => console.log("Conectado ao MongoDB com sucesso!"))
+  .catch((err) => console.error("Erro ao conectar ao MongoDB:", err));
 
-// 4. Adicionar um "middleware"
 app.use(express.json());
 
-// 5. rota de teste
-app.get('/', (req, res) => {
-  res.send('API da Biblioteca está funcionando!');
-});
+require("./models/author.model");
+require("./models/user.model");
+require("./models/book.model");
+require("./models/loan.model");
 
-// 6. Iniciar o servidor
+const userRoutes = require("./routes/user.routes");
+const authorRoutes = require("./routes/author.routes");
+const bookRoutes = require("./routes/book.routes");
+const loanRoutes = require("./routes/loan.routes");
+
+app.use("/users", userRoutes);
+app.use("/authors", authorRoutes);
+app.use("/books", bookRoutes);
+app.use("/loans", loanRoutes);
+
+app.get("/", (req, res) => {
+  res.send("API da Biblioteca está funcionando!");
+});
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
