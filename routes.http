@@ -1,0 +1,55 @@
+### Cadastrar Autor (POST /authors)
+POST http://localhost:3000/authors
+Content-Type: application/json
+
+{
+    "name": "Gabriel Garcia Marquez",
+    "birthDate": "1927-03-06",
+    "sex": "M",
+    "writingGenre": "Novel"
+}
+
+### Listar Autores (GET /authors)
+GET http://localhost:3000/authors
+
+### Cadastrar Usuário (POST /users)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "Maria Teste",
+    "birthDate": "1990-01-01",
+    "sex": "F",
+    "address": "Rua das Flores, 123"
+}
+
+### Listar Usuários (GET /users)
+GET http://localhost:3000/users
+
+### Cadastrar Livro (POST /books)
+# Use um ID de autor VÁLIDO obtido da rota GET /authors
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+    "title": "Cem Anos de Solidão",
+    "synopsis": "Uma saga familiar em Macondo.",
+    "year": 1967,
+    "author": "COLOQUE O ID DO AUTOR AQUI (ObjectId)" 
+}
+
+### Listar Livros (GET /books)
+GET http://localhost:3000/books
+
+### Realizar Empréstimo (POST /loans)
+# Use um ID de livro VÁLIDO e um ID de usuário VÁLIDO
+POST http://localhost:3000/loans
+Content-Type: application/json
+
+{
+    "bookId": "COLOQUE O ID DO LIVRO AQUI (ObjectId)",
+    "userId": "COLOQUE O ID DO USUÁRIO AQUI (ObjectId)"
+}
+
+### Limpar Banco de Dados (Via Script)
+# Execute no terminal: npm run collections
